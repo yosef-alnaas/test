@@ -5,10 +5,10 @@ exports.register = async(req,res)=>{
         const {username,email,password,role,department,publicKey,profilePicture} =req.body;
 
         const newUser = await UserService.registerUser(username, email, password, role, department, publicKey,profilePicture);
-        res.status(201).json({ success: true, data: newUser });
+        res.status(201).json({ status: true, data: newUser });
         
     } catch (error) {
-        res.status(400).json({ success: false, message: err.message });
+        res.status(400).json({ status: false, message: err.message });
     }
 }
 
@@ -18,7 +18,7 @@ exports.loginUserController = async(req,res)=>{
 
         // Ensure email and password are provided
         if (!email || !password) {
-            return res.status(400).json({ success: false, message: 'Email and password are required' });
+            return res.status(400).json({ status: false, message: 'Email and password are required' });
         }
 
         // Call the login service
@@ -28,6 +28,6 @@ exports.loginUserController = async(req,res)=>{
         return res.status(200).json(loginResult);
     } catch (err) {
         // If an error occurs (e.g., wrong password or email), return an error
-        return res.status(400).json({ success: false, message: err.message });
+        return res.status(400).json({ status: false, message: err.message });
     }
 }
