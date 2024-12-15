@@ -59,7 +59,7 @@ class UserService {
 
             // Return the token and user data (you can customize this)
             return {
-                success: true,
+                status: true,
                 token,
                 user: {
                     id: user._id,
