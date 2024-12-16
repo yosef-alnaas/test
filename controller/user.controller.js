@@ -31,7 +31,7 @@ exports.loginUserController = async (req, res) => {
         const loginResult = await UserService.loginUser(email, password);
 
         // Expecting loginResult to contain { success: boolean, token: string, ... }
-        if (loginResult && loginResult.success === true) {
+        if (loginResult && loginResult.status === true) {
             // Return consistent success response
             return res.status(200).json({
                 status: true,
@@ -45,12 +45,11 @@ exports.loginUserController = async (req, res) => {
                 message: loginResult.message || "Login failed. Please check your credentials." 
             });
         }
-
+        
     } catch (error) {
         return res.status(400).json({ status: false, message: error.message });
     }
 }
-<<<<<<< Updated upstream
 
 exports.findusers= async(req,res)=>{
     try {
@@ -67,5 +66,7 @@ exports.findusers= async(req,res)=>{
         throw error;
     }
 }
-=======
->>>>>>> Stashed changes
+        
+        
+        
+
