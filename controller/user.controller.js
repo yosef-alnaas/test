@@ -31,3 +31,19 @@ exports.loginUserController = async(req,res)=>{
         return res.status(400).json({ status: false, message: err.message });
     }
 }
+
+exports.findusers= async(req,res)=>{
+    try {
+        const users = await UserService.findUsers();
+        console.log(users);
+
+       return res.status(200).json({
+        status: true,
+        data:users
+       });
+
+        
+    } catch (error) {
+        throw error;
+    }
+}

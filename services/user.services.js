@@ -72,6 +72,25 @@ class UserService {
             throw err;
         }
     }
+
+    static async findUsers()
+    {
+        try {
+
+            const users= await usermodel.find({},"_id username");
+            console.log(users);
+
+            return {
+                status: true,
+                users
+            };
+
+        }
+
+        catch (err){
+            throw err;
+        }
+    }
 }
 
 module.exports = UserService;
