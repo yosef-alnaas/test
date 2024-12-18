@@ -77,7 +77,7 @@ class UserService {
     {
         try {
 
-            const users= await usermodel.find({},"_id username");
+            const users= await usermodel.find({},"_id username").lean();
             console.log(users);
 
             return users; 
