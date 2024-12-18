@@ -51,21 +51,31 @@ exports.loginUserController = async (req, res) => {
     }
 }
 
-exports.findusers= async(req,res)=>{
+exports.findusers = async (req, res) => {
     try {
-        const users = await UserService.findUsers();
-        console.log(users);
-
-       return res.status(200).json({
+      const users = await UserService.findUsers();
+  
+      // Convert ObjectId to string for each user
+      const sanitizedUsers = users.map(u => {
+        return {
+          ...u,
+          _id: u._id.toString() // Convert ObjectId to a simple string
+        };
+      });
+  
+      console.log(sanitizedUsers);
+  
+      return res.status(200).json({
         status: true,
-        data:users
-       });
-
-        
+        data: sanitizedUsers
+      });
+  
     } catch (error) {
-        throw error;
+      console.error(error);
+      return res.status(500).json({ status: false, message: "Server error" });
     }
-}
+  };
+  
         
         
         
