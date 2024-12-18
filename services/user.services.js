@@ -80,13 +80,10 @@ class UserService {
             const users= await usermodel.find({},"_id username");
             console.log(users);
 
-            return {
-                status: true,
-                users
-            };
+            return users; 
 
+        
         }
-
         catch (err){
             throw err;
         }
