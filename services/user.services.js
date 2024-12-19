@@ -2,6 +2,7 @@ const usermodel = require('../modle/user.modle'); // Ensure the correct path
 const bcrypt = require('bcrypt'); // Import bcrypt to hash passwords
 const jwt = require('jsonwebtoken');
 
+
 class UserService {
     static async registerUser(username, email, password, role, department, publicKey, profilePicture = '') {
         try {
@@ -77,7 +78,7 @@ class UserService {
     {
         try {
 
-            const users= await usermodel.find({},"_id username");
+            const users= await usermodel.find({},"_id username").lean();
             console.log(users);
 
             return users; 
@@ -88,6 +89,18 @@ class UserService {
             throw err;
         }
     }
+    static async chatreq(r)
+    {
+        try {
+            return await con.chatRequist(r);
+            
+        } catch (error) {
+            throw error;
+            
+        }
+    }
+    
+
 }
 
 module.exports = UserService;
