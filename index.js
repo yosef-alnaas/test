@@ -36,8 +36,16 @@ io.on("connection", (socket) => {
     
     socket.on('start_chat_request', (data) => {
         const { sourceId, targetId, sourceName } = data;
-        io.to(targetId).emit('incoming_chat_request', { sourceId, sourceName });
-      });
+    
+        if (claints[targetId]) {
+            // Send the chat request to the target user
+            claints[targetId].emit('incoming_chat_request', { sourceId, sourceName });
+            console.log(`Chat request sent from ${sourceId} to ${targetId}`);
+        } else {
+            console.log(`Target user ${targetId} is not connected.`);
+        }
+    });
+    
     
       socket.on('accept_chat_request', (data) => {
         const { sourceId, targetId } = data;
