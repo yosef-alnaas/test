@@ -33,6 +33,19 @@ io.on("connection", (socket) => {
             console.log(`Target client ${targetId} not found.`);
         }
     });
+    
+    socket.on('start_chat_request', (data) => {
+        const { sourceId, targetId, sourceName } = data;
+        io.to(targetId).emit('incoming_chat_request', { sourceId, sourceName });
+      });
+    
+      socket.on('accept_chat_request', (data) => {
+        const { sourceId, targetId } = data;
+        const chatRoomId = `${sourceId}_${targetId}`;
+        io.to(sourceId).emit('chat_request_accepted', { chatRoomId });
+        io.to(targetId).emit('chat_request_accepted', { chatRoomId });
+      });
+    
 
     socket.on("disconnect", () => {
         console.log(socket.id, "disconnected");
