@@ -47,12 +47,24 @@ io.on("connection", (socket) => {
     });
     
     
-      socket.on('accept_chat_request', (data) => {
+    socket.on('accept_chat_request', (data) => {
         const { sourceId, targetId } = data;
-        const chatRoomId = `${sourceId}_${targetId}`;
-        io.to(sourceId).emit('chat_request_accepted', { chatRoomId });
-        io.to(targetId).emit('chat_request_accepted', { chatRoomId });
-      });
+    
+        // Validate if clients exist
+        if (claints[sourceId] && claints[targetId]) {
+            const chatRoomId = targetId; // Ensure this is properly assigned
+            console.log(chatRoomId);
+    
+            // Emit the chat room IDs to both clients
+            claints[targetId].emit('chat_request_accepted', { chatRoomId });
+            claints[sourceId].emit('chat_request_accepted', { chatRoomId });
+    
+            console.log(`Chat room IDs sent: ${chatRoomId} to sourceId ${sourceId}, ${chatRoomId} to targetId ${targetId}`);
+        } else {
+            console.log(`One of the clients is not connected. Source: ${sourceId}, Target: ${targetId}`);
+        }
+    });
+    
     
 
     socket.on("disconnect", () => {
