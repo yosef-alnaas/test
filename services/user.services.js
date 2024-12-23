@@ -114,6 +114,17 @@ class UserService {
             throw error;
         }
     }
+
+    static async sendpublickey(userid)
+    {
+        try {
+            const user=await usermodel.findById(userid).select("publicKey");
+            return user;
+
+        } catch (error) {
+            throw error;
+        }
+    }
     
 
 }

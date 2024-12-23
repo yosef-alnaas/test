@@ -86,6 +86,17 @@ exports.findusers = async (req, res) => {
       return res.status(400).json({ status: false, message: error.message });
     }
   }
+
+  exports.sendkey = async(req,res) =>{
+    try {
+      const { _id} = req.body;
+      const result = await UserService.sendpublickey(_id);
+      return res.status(200).json(result);
+      
+    } catch (error) {
+      return res.status(400).json({ status: false, message: error.message });
+    }
+  }
         
         
         
