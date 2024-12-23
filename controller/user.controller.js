@@ -36,9 +36,7 @@ exports.loginUserController = async (req, res) => {
             return res.status(200).json({
                 status: true,
                 token: loginResult.token,
-                message: "Login successful",
-                id: loginResult.user.id
-                
+                message: "Login successful"
             });
         } else {
             // If loginResult doesn't have success or token, handle it
@@ -65,7 +63,6 @@ exports.findusers = async (req, res) => {
         };
       });
   
-      console.log(sanitizedUsers);
   
       return res.status(200).json({
         status: true,
