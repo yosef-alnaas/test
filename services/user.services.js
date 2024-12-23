@@ -99,6 +99,21 @@ class UserService {
             
         }
     }
+    static async savekey(userid,PublicKey)
+    {
+        try {
+            const result=await usermodel.updateOne(
+            { _id:userid}, // Filter condition
+            { $set: { publicKey: PublicKey } } // Update operation
+            )
+            if (result.modifiedCount > 0) {
+                return { status: true, message: "Public Key updated successfully" };
+            } 
+            
+        } catch (error) {
+            throw error;
+        }
+    }
     
 
 }

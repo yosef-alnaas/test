@@ -75,6 +75,17 @@ exports.findusers = async (req, res) => {
       return res.status(500).json({ status: false, message: "Server error" });
     }
   };
+
+  exports.savekey = async (req,res)=>{
+    try {
+      const { _id, publicKey } = req.body;
+      const result= await UserService.savekey(_id,publicKey);
+      return res.status(200).json(result);
+      
+    } catch (error) {
+      return res.status(400).json({ status: false, message: error.message });
+    }
+  }
         
         
         
