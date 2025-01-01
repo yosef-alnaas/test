@@ -99,32 +99,36 @@ class UserService {
             
         }
     }
-    static async savekey(userid,PublicKey)
-    {
+    static async savekey(userid, PublicKey) {
         try {
-            const result=await usermodel.updateOne(
-            { _id:userid}, // Filter condition
-            { $set: { publicKey: PublicKey } } // Update operation
-            )
+            
+    
+            const result = await usermodel.updateOne(
+                { _id: userid },
+                { $set: { publicKey: PublicKey } }
+            );
+    
             if (result.modifiedCount > 0) {
                 return { status: true, message: "Public Key updated successfully" };
-            } 
-            
+            } else {
+                return { status: false, message: "No matching user found to update" };
+            }
         } catch (error) {
             throw error;
         }
     }
+    
 
-    static async sendpublickey(userid)
-    {
+    static async sendpublickey(userid) {
         try {
-            const user=await usermodel.findById(userid).select("publicKey");
-            return user;
+            const user = await usermodel.findById(userid).select("publicKey");
 
+            return { status: true, user};
         } catch (error) {
             throw error;
         }
     }
+    
     
 
 }

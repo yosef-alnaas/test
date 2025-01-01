@@ -89,7 +89,11 @@ exports.findusers = async (req, res) => {
 
   exports.sendkey = async(req,res) =>{
     try {
-      const { _id} = req.body;
+      const { _id} = req.query;
+      if(!_id)
+      {
+        return res.status(400).json({ status: false, message: error.message });
+      }
       const result = await UserService.sendpublickey(_id);
       return res.status(200).json(result);
       

@@ -64,6 +64,21 @@ io.on("connection", (socket) => {
             console.log(`One of the clients is not connected. Source: ${sourceId}, Target: ${targetId}`);
         }
     });
+
+    socket.on('encAESkey', (data) =>{
+        const { sourceId, targetId, encAES } = data;
+
+        if (claints[sourceId] && claints[targetId]) {
+
+            claints[targetId].emit('reciveAES', { encAES });
+    
+            console.log(`secessfuly`);
+        } else {
+            console.log(`failed`);
+        }
+    
+
+    });
     
     
 
